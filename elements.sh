@@ -1,8 +1,8 @@
-#!/usr/bin/bash
-PSQL="psql --username=postgres --dbname=periodic_table --port=5433 --tuples-only -c"
+#!/bin/bash
+PSQL="psql --username=freecodecamp --dbname=periodic_table --tuples-only -c"
 if [[ -z $1 ]]
 then
-    echo Please provide an element as an arguement.
+    echo Please provide an element as an argument.
 fi
 
 if [[ $1 =~ ^[0-9]+ ]]

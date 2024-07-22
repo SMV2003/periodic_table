@@ -19,5 +19,14 @@ then
     fi
 elif [[ $1 =~ ^[A-Za-z]+ ]]
 then
-    echo name or symbol
+    INFO="$($PSQL "SELECT * FROM elements JOIN properties USING(atomic_number) JOIN types USING(type_id) WHERE symbol='$1' OR name='$1'")"
+        if [[ -z $INFO ]]
+    then
+        echo I could not find that element in the database.
+    else
+        echo "$INFO" | while read TYPE_ID BAR ANUM BAR SYMBOL BAR NAME BAR AMASS BAR MPOINT BAR BPOINT BAR TYPE
+        do
+            echo "The element with atomic number $ANUM is $NAME ($SYMBOL). It's a $TYPE, with a mass of $AMASS amu. $NAME has a melting point of $MPOINT celsius and a boiling point of $BPOINT celsius."
+        done
+    fi
 fi
